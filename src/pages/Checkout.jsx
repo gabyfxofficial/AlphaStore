@@ -343,7 +343,7 @@ function Checkout() {
             />
             <label htmlFor="terms" className="text-lg">
               I accept the{" "}
-              <Link to="/terms" className="text-blue-500 underline">
+              <Link to="/terms" onClick={scrollToTop} className="text-blue-500 underline">
                 Terms and Conditions
               </Link>
             </label>

@@ -7,18 +7,23 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(null);
+    setSuccess(null);
 
     const data = await loginUser(username, password);
 
     if (data && data.token) {
       localStorage.setItem("authToken", data.token);
-      alert("Login successful!");
-      navigate("/");
+      setSuccess("Login successful! Redirecting...");
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        navigate("/");
+      }, 1500);
     } else {
       setError("Invalid credentials");
     }
@@ -40,16 +45,27 @@ function Login() {
         >
           Login
         </motion.h2>
+
+        {success && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-4 p-3 rounded-md text-green-400 text-center bg-green-900/20 border border-green-500"
+          >
+            {success}
+          </motion.div>
+        )}
+
         {error && (
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="text-red-500 text-center mb-4"
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-4 p-3 rounded-md text-red-400 text-center bg-red-900/20 border border-red-500"
           >
             {error}
-          </motion.p>
+          </motion.div>
         )}
+
         <form onSubmit={handleLogin} className="space-y-6">
           <motion.input
             initial={{ opacity: 0, x: -30 }}
