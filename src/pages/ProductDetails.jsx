@@ -12,7 +12,7 @@ import {
   Truck,
   RotateCw,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import ProductExtras from "../components/ProductExtras";
 
 function ProductDetails() {
@@ -23,7 +23,6 @@ function ProductDetails() {
   const [product, setProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState("M");
   const [quantity, setQuantity] = useState(1);
-  const [notification, setNotification] = useState({ text: "", type: "" });
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -35,19 +34,12 @@ function ProductDetails() {
       .then((data) => setProduct(data));
   }, [id]);
 
-  const showNotification = (text, type) => {
-    setNotification({ text, type });
-    setTimeout(() => setNotification({ text: "", type: "" }), 2500);
-  };
-
   const handleAddToCart = () => {
     addToCart({ ...product, selectedSize, quantity });
-    showNotification("Product added to cart!", "cart");
   };
 
   const handleAddToWishlist = () => {
     addToWishlist({ ...product, selectedSize });
-    showNotification("Product added to wishlist!", "wishlist");
   };
 
   if (!product) {
@@ -59,32 +51,13 @@ function ProductDetails() {
   }
 
   const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
-
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8 lg:py-12 relative">
-      <AnimatePresence>
-        {notification.text && (
-          <motion.div
-            key="notif"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className={`fixed top-6 left-1/2 transform -translate-x-1/2 px-6 py-2 rounded-full shadow-xl z-50 text-white font-semibold ${
-              notification.type === "wishlist"
-                ? "bg-pink-500"
-                : "bg-gradient-to-r from-indigo-500 to-blue-600"
-            }`}
-          >
-            {notification.text}
-          </motion.div>
-        )}
-      </AnimatePresence>
-
+    <div className="max-w-6xl mx-auto px-4 py-8 lg:py-12">
       <motion.div
         className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start"
         initial="hidden"

@@ -1,14 +1,15 @@
 import { motion } from "framer-motion";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { ShoppingCart, Trash2, Star } from "lucide-react";
+import { useWishlist } from "../context/WishlistContext";
 
 function Wishlist() {
   const dispatch = useDispatch();
-  const wishlist = useSelector((state) => state.wishlist.items);
+  const { wishlist, removeFromWishlist } = useWishlist();
 
   const handleMoveToCart = (item) => {
     dispatch({ type: "ADD_TO_CART", payload: item });
-    dispatch({ type: "REMOVE_FROM_WISHLIST", payload: item.id });
+    removeFromWishlist(item.id);
   };
 
   const containerVariants = {
@@ -40,6 +41,7 @@ function Wishlist() {
         </motion.h2>
         <div className="mt-4 h-1 w-48 mx-auto bg-gradient-to-r from-blue-500 to-blue-300 rounded-full shadow-[0_0_15px_5px_rgba(59,130,246,0.5)]"></div>
         <div className="mt-8"></div>
+
         {wishlist.length === 0 ? (
           <motion.p
             className="text-center text-gray-300"
@@ -84,12 +86,7 @@ function Wishlist() {
                       <ShoppingCart size={18} /> Add
                     </button>
                     <button
-                      onClick={() =>
-                        dispatch({
-                          type: "REMOVE_FROM_WISHLIST",
-                          payload: item.id,
-                        })
-                      }
+                      onClick={() => removeFromWishlist(item.id)}
                       className="flex items-center gap-2 bg-gradient-to-r from-pink-500 to-pink-700 text-white px-2 py-1 rounded-full shadow-md hover:scale-105 transition duration-300"
                     >
                       <Trash2 size={18} />
