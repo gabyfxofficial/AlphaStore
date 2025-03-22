@@ -1,0 +1,219 @@
+:root {
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --bg-dark: rgba(30, 41, 59, 0.85);
+  --bg-body: #0b132b;
+  --border-color: #4b5563;
+  --text-small: 0.875rem;
+  --font-base: "Inter", sans-serif;
+  --input-padding: 14px;
+  --input-radius: 12px;
+}
+
+.products-container {
+  @apply min-h-screen text-white py-4;
+  background-color: var(--bg-body);
+}
+
+.products-title {
+  @apply text-4xl sm:text-5xl font-bold text-center mt-4 mb-6 text-white drop-shadow-[0_0_10px_rgba(59,130,246,0.7)];
+}
+
+.products-content {
+  @apply flex flex-col md:flex-row gap-6 justify-center items-start mt-12;
+}
+
+.container {
+  @apply mx-auto px-4;
+}
+
+/* Sidebar-ul de filtre */
+.filter-column {
+  @apply w-full md:w-64 mr-6;
+}
+
+.filter-sidebar {
+  @apply rounded-2xl p-6 shadow-lg backdrop-blur-md;
+  background-color: var(--bg-dark);
+  border: 1px solid var(--border-color);
+  animation: fadeInSide 0.5s ease-in-out forwards;
+}
+
+.filter-heading {
+  @apply text-2xl font-bold uppercase mb-6 pb-2 bg-clip-text text-transparent text-center;
+  border-bottom: 2px solid var(--border-color);
+  background-image: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--primary-hover)
+  );
+}
+
+.filter-section {
+  @apply mb-6;
+}
+
+.filter-section-heading {
+  @apply font-semibold mb-2 uppercase text-gray-200;
+  font-size: var(--text-small);
+}
+
+.filter-input {
+  @apply w-full text-sm mb-3 transition-all duration-200;
+  padding: var(--input-padding);
+  border: 1px solid var(--border-color);
+  border-radius: var(--input-radius);
+  background-color: var(--bg-body);
+  color: white;
+}
+
+.filter-input:focus {
+  @apply outline-none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 8px var(--primary-color);
+}
+
+.filter-checkbox {
+  @apply mr-2 transform scale-110;
+}
+
+.filter-label {
+  @apply text-gray-200;
+}
+
+.filter-button {
+  @apply rounded-md py-3 text-sm font-semibold w-full mt-3 transition-all duration-200;
+  background-color: var(--primary-color);
+}
+
+.filter-button:hover {
+  @apply scale-105;
+  background-color: var(--primary-hover);
+}
+
+.filter-toggle {
+  @apply rounded-md p-2 cursor-pointer flex items-center justify-center transition-all duration-200;
+  background-color: var(--primary-color);
+}
+
+.filter-toggle:hover {
+  @apply scale-105;
+  background-color: var(--primary-hover);
+}
+
+/* Price slider */
+.price-slider {
+  @apply flex flex-col gap-2;
+}
+
+.price-range-input {
+  @apply w-full;
+}
+
+.price-values {
+  @apply flex justify-between text-gray-200;
+  font-size: var(--text-small);
+}
+
+/* Grid pentru produse */
+.products-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-6;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Setare touch-action pentru elementele interactive */
+button,
+input,
+select {
+  touch-action: manipulation;
+}
+
+@media (max-width: 768px) {
+  .products-content {
+    @apply flex-col items-center;
+  }
+  .filter-column {
+    @apply w-full mb-4 flex justify-center;
+  }
+  .filter-sidebar {
+    @apply p-4 w-full max-w-xs mx-auto;
+  }
+  .products-grid {
+    @apply grid-cols-2 gap-4;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    @apply px-2;
+  }
+  .products-grid {
+    @apply grid-cols-1 gap-2;
+  }
+  .products-title {
+    @apply text-2xl;
+  }
+  .filter-sidebar {
+    @apply p-3 w-full max-w-xs mx-auto;
+  }
+  .filter-input,
+  .filter-button,
+  .filter-toggle {
+    @apply text-sm p-2;
+  }
+}
+
+/* Stiluri pentru cardurile de produs */
+.product-card {
+  @apply rounded-2xl shadow-lg overflow-hidden transition duration-300;
+  background-image: linear-gradient(to bottom, #121c2a, #0f172a);
+  width: 14rem;
+  height: 20rem;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px var(--primary-color);
+}
+
+.product-card img {
+  @apply w-full object-cover transition duration-300;
+  height: 60%;
+}
+
+.product-card button {
+  @apply transition duration-300;
+}
+
+.product-card button:hover {
+  @apply scale-105;
+}
+
+/* Loader */
+.loading-text {
+  @apply text-center text-gray-400 mt-10 text-lg animate-pulse;
+}
+
+/* Animații personalizate */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInSide {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
